@@ -1,0 +1,6 @@
+<h1>Users Information</h1>
+
+<% @users.each do |user| %>
+  <p> email: <%= user.email %>       sign in count: <%=user.sign_in_count%> </p>
+  
+<% end %>

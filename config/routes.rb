@@ -5,7 +5,9 @@ devise_scope :user do
 end
 
 devise_for :users, controllers: { registrations: "registrations" }
+
 root 'home#index'
+get 'dashboard', to: 'home#dashboard'
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -41,9 +41,12 @@
 <% end %>
   <% if user_signed_in? %>
     <p>Signed in as <strong><%= current_user.email %> </strong> 
+    <p>Role is admin or not <strong><%= current_user.has_role? :admin %></strong> </p>
+    <p><%= current_user.roles.pluck(:name) %></strong> </p>
   
   <% end %>
-   
+
+    
     <%= yield %>
   </body>
 </html>

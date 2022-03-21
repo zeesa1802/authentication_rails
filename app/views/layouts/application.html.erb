@@ -37,7 +37,7 @@
       </nav>
     </header>
 <% flash.each do |message_type, message| %>
-	<%= content_tag(:div, message) %>
+	<div style="background-color: orange"><%= content_tag(:div, message) %></div>
 <% end %>
   <% if user_signed_in? %>
     <p>Signed in as <strong><%= current_user.email %> </strong> 

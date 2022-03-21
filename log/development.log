@@ -3401,3 +3401,1342 @@ Processing by HomeController#index as HTML
 Completed 200 OK in 569ms (Views: 542.6ms | ActiveRecord: 4.9ms | Allocations: 6584)
 
 
+Started GET "/users/sign_out" for 127.0.0.1 at 2022-03-20 15:18:25 +0500
+Processing by Devise::SessionsController#destroy as HTML
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 164ms (ActiveRecord: 24.8ms | Allocations: 7382)
+
+
+Started GET "/" for 127.0.0.1 at 2022-03-20 15:18:27 +0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.4ms | Allocations: 17)
+  Rendered layout layouts/application.html.erb (Duration: 1307.5ms | Allocations: 13683)
+Completed 200 OK in 1386ms (Views: 1315.4ms | ActiveRecord: 0.0ms | Allocations: 14507)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2022-03-20 15:18:30 +0500
+Processing by RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering /home/zeesa/.rvm/gems/ruby-3.0.0/gems/devise-4.8.1/app/views/devise/registrations/new.html.erb within layouts/application
+  Rendered /home/zeesa/.rvm/gems/ruby-3.0.0/gems/devise-4.8.1/app/views/devise/shared/_error_messages.html.erb (Duration: 3.7ms | Allocations: 239)
+  Rendered /home/zeesa/.rvm/gems/ruby-3.0.0/gems/devise-4.8.1/app/views/devise/shared/_links.html.erb (Duration: 6.6ms | Allocations: 642)
+  Rendered /home/zeesa/.rvm/gems/ruby-3.0.0/gems/devise-4.8.1/app/views/devise/registrations/new.html.erb within layouts/application (Duration: 43.3ms | Allocations: 2569)
+  Rendered layout layouts/application.html.erb (Duration: 431.8ms | Allocations: 4828)
+Completed 200 OK in 564ms (Views: 482.7ms | ActiveRecord: 0.0ms | Allocations: 6480)
+
+
+Started POST "/users" for 127.0.0.1 at 2022-03-20 15:18:41 +0500
+Processing by RegistrationsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"new@new.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "new@new.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (6.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "sign_in_count", "current_sign_in_at", "last_sign_in_at", "current_sign_in_ip", "last_sign_in_ip") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "id"[0m  [["email", "new@new.com"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2022-03-20 10:18:42.237967"], ["updated_at", "2022-03-20 10:18:42.237967"], ["sign_in_count", 0], ["current_sign_in_at", nil], ["last_sign_in_at", nil], ["current_sign_in_ip", nil], ["last_sign_in_ip", nil]]
+  [1m[36mRole Load (0.8ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/models/user.rb:12:in `assign_default_role'
+  [1m[36mRole Load (0.4ms)[0m  [1m[34mSELECT "roles".* FROM "roles" WHERE "roles"."name" = $1 AND "roles"."resource_type" IS NULL AND "roles"."resource_id" IS NULL ORDER BY "roles"."id" ASC LIMIT $2[0m  [["name", "newuser"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:12:in `assign_default_role'
+  [1m[36mRole Create (1.2ms)[0m  [1m[32mINSERT INTO "roles" ("name", "resource_type", "resource_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "newuser"], ["resource_type", nil], ["resource_id", nil], ["created_at", "2022-03-20 10:18:42.284105"], ["updated_at", "2022-03-20 10:18:42.284105"]]
+  ↳ app/models/user.rb:12:in `assign_default_role'
+  [1m[36mUser::HABTM_Roles Create (0.9ms)[0m  [1m[32mINSERT INTO "users_roles" ("user_id", "role_id") VALUES ($1, $2)[0m  [["user_id", 10], ["role_id", 3]]
+  ↳ app/models/user.rb:12:in `assign_default_role'
+  [1m[36mTRANSACTION (3.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Update (1.0ms)[0m  [1m[33mUPDATE "users" SET "updated_at" = $1, "sign_in_count" = $2, "current_sign_in_at" = $3, "last_sign_in_at" = $4, "current_sign_in_ip" = $5, "last_sign_in_ip" = $6 WHERE "users"."id" = $7[0m  [["updated_at", "2022-03-20 10:18:42.345519"], ["sign_in_count", 1], ["current_sign_in_at", "2022-03-20 10:18:42.345002"], ["last_sign_in_at", "2022-03-20 10:18:42.345002"], ["current_sign_in_ip", "127.0.0.1/32"], ["last_sign_in_ip", "127.0.0.1/32"], ["id", 10]]
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 584ms (ActiveRecord: 20.6ms | Allocations: 26048)
+
+
+Started GET "/" for 127.0.0.1 at 2022-03-20 15:18:42 +0500
+Processing by HomeController#index as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.5ms | Allocations: 15)
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.erb:19
+  [1m[36mRole Load (1.9ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (1.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 377.1ms | Allocations: 4828)
+Completed 200 OK in 463ms (Views: 377.3ms | ActiveRecord: 4.9ms | Allocations: 5206)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 15:21:22 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:3
+  Rendered users/index.html.erb within layouts/application (Duration: 18.4ms | Allocations: 910)
+  [1m[36mRole Load (1.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (1.6ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 244.1ms | Allocations: 4790)
+Completed 200 OK in 279ms (Views: 247.4ms | ActiveRecord: 4.0ms | Allocations: 6943)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 15:22:04 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 156ms (ActiveRecord: 17.6ms | Allocations: 11005)
+
+
+  
+NameError (undefined local variable or method `desc' for #<UsersController:0x00000000016aa8>):
+  
+app/controllers/users_controller.rb:3:in `index'
+Started GET "/users" for 127.0.0.1 at 2022-03-20 15:22:24 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  Rendered users/index.html.erb within layouts/application (Duration: 10.7ms | Allocations: 748)
+  [1m[36mRole Load (1.8ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (1.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 1646.3ms | Allocations: 23924)
+Completed 200 OK in 1818ms (Views: 1636.3ms | ActiveRecord: 31.3ms | Allocations: 32406)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 15:22:38 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  Rendered users/index.html.erb within layouts/application (Duration: 3.0ms | Allocations: 734)
+  [1m[36mRole Load (0.7ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 86.8ms | Allocations: 4490)
+Completed 200 OK in 106ms (Views: 86.8ms | ActiveRecord: 2.1ms | Allocations: 6045)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 15:23:29 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  Rendered users/index.html.erb within layouts/application (Duration: 3.0ms | Allocations: 741)
+  [1m[36mRole Load (1.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (1.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 1213.2ms | Allocations: 23923)
+Completed 200 OK in 1257ms (Views: 1200.9ms | ActiveRecord: 21.0ms | Allocations: 32368)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 22:43:41 +0500
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+Completed 401 Unauthorized in 69ms (ActiveRecord: 0.0ms | Allocations: 5866)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-03-20 22:43:42 +0500
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering /home/zeesa/.rvm/gems/ruby-3.0.0/gems/devise-4.8.1/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /home/zeesa/.rvm/gems/ruby-3.0.0/gems/devise-4.8.1/app/views/devise/shared/_links.html.erb (Duration: 2.2ms | Allocations: 839)
+  Rendered /home/zeesa/.rvm/gems/ruby-3.0.0/gems/devise-4.8.1/app/views/devise/sessions/new.html.erb within layouts/application (Duration: 65.3ms | Allocations: 3974)
+  Rendered layout layouts/application.html.erb (Duration: 837.4ms | Allocations: 38602)
+Completed 200 OK in 960ms (Views: 911.6ms | ActiveRecord: 6.6ms | Allocations: 50414)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2022-03-20 22:43:45 +0500
+Processing by Devise::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"new@new.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (2.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "new@new.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "updated_at" = $1, "sign_in_count" = $2, "current_sign_in_at" = $3 WHERE "users"."id" = $4[0m  [["updated_at", "2022-03-20 17:43:46.318503"], ["sign_in_count", 2], ["current_sign_in_at", "2022-03-20 17:43:46.318069"], ["id", 10]]
+  [1m[36mTRANSACTION (6.1ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://127.0.0.1:3000/users
+Completed 302 Found in 342ms (ActiveRecord: 9.8ms | Allocations: 10388)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 22:43:46 +0500
+Processing by UsersController#index as TURBO_STREAM
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  Rendered users/index.html.erb within layouts/application (Duration: 16.5ms | Allocations: 924)
+  [1m[36mRole Load (5.1ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (1.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 263.0ms | Allocations: 19720)
+Completed 200 OK in 290ms (Views: 258.5ms | ActiveRecord: 10.5ms | Allocations: 21910)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 22:46:10 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 36ms (ActiveRecord: 3.8ms | Allocations: 11002)
+
+
+  
+NameError (undefined local variable or method `zsalk' for #<UsersController:0x000000000121d8>):
+  
+app/controllers/users_controller.rb:4:in `index'
+Started GET "/users" for 127.0.0.1 at 2022-03-20 22:48:45 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:4
+  Rendered users/index.html.erb within layouts/application (Duration: 77.0ms | Allocations: 15228)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 520.6ms | Allocations: 30550)
+Completed 200 OK in 579ms (Views: 525.6ms | ActiveRecord: 8.6ms | Allocations: 39296)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 22:51:36 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mRole Pluck (0.7ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:4
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:4
+  Rendered users/index.html.erb within layouts/application (Duration: 48.8ms | Allocations: 9486)
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 132.4ms | Allocations: 13861)
+Completed 200 OK in 166ms (Views: 137.3ms | ActiveRecord: 5.4ms | Allocations: 16153)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 22:53:57 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 45.8ms | Allocations: 9511)
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 131.8ms | Allocations: 13882)
+Completed 200 OK in 165ms (Views: 137.3ms | ActiveRecord: 4.5ms | Allocations: 16186)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 22:54:21 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 48.0ms | Allocations: 9507)
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 137.7ms | Allocations: 13877)
+Completed 200 OK in 173ms (Views: 143.4ms | ActiveRecord: 4.5ms | Allocations: 16169)
+
+
+Started GET "/routes" for 127.0.0.1 at 2022-03-20 22:56:50 +0500
+  
+ActionController::RoutingError (No route matches [GET] "/routes"):
+  
+Started GET "/users" for 127.0.0.1 at 2022-03-20 22:58:03 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 47.5ms | Allocations: 9783)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 137.1ms | Allocations: 14138)
+Completed 200 OK in 169ms (Views: 142.5ms | ActiveRecord: 4.3ms | Allocations: 16427)
+
+
+Started GET "/users/10/edit" for 127.0.0.1 at 2022-03-20 22:58:06 +0500
+  
+AbstractController::ActionNotFound (The action 'edit' could not be found for UsersController):
+  
+actionpack (7.0.2.3) lib/abstract_controller/base.rb:146:in `process'
+actionview (7.0.2.3) lib/action_view/rendering.rb:39:in `process'
+actionpack (7.0.2.3) lib/action_controller/metal.rb:188:in `dispatch'
+actionpack (7.0.2.3) lib/action_controller/metal.rb:251:in `dispatch'
+actionpack (7.0.2.3) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.0.2.3) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.0.2.3) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.2.3) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.2.3) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.2.3) lib/action_dispatch/routing/route_set.rb:850:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.3) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/http/content_security_policy.rb:18:in `call'
+rack (2.2.3) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.3) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/middleware/cookies.rb:693:in `call'
+activerecord (7.0.2.3) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.2.3) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.2.3) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.2.3) lib/rails/rack/logger.rb:36:in `call_app'
+railties (7.0.2.3) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.2.3) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.2.3) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.2.3) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.2.3) lib/rails/rack/logger.rb:25:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/middleware/server_timing.rb:20:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.2.3) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.2.3) lib/rails/engine.rb:530:in `call'
+puma (5.6.2) lib/puma/configuration.rb:252:in `call'
+puma (5.6.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.2) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.2) lib/puma/server.rb:441:in `process_client'
+puma (5.6.2) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/users" for 127.0.0.1 at 2022-03-20 22:58:16 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 31.2ms | Allocations: 9527)
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 110.7ms | Allocations: 13228)
+Completed 200 OK in 130ms (Views: 108.0ms | ActiveRecord: 4.4ms | Allocations: 14800)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 22:59:53 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 45.2ms | Allocations: 9776)
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 134.6ms | Allocations: 14128)
+Completed 200 OK in 169ms (Views: 140.4ms | ActiveRecord: 4.4ms | Allocations: 16408)
+
+
+Started GET "/users/10/edit" for 127.0.0.1 at 2022-03-20 22:59:56 +0500
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/edit.html.erb within layouts/application (Duration: 6.8ms | Allocations: 106)
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 78.0ms | Allocations: 3852)
+Completed 200 OK in 96ms (Views: 78.5ms | ActiveRecord: 1.1ms | Allocations: 5389)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 23:09:58 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 64.1ms | Allocations: 17587)
+  [1m[36mRole Load (0.9ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 434.8ms | Allocations: 33101)
+Completed 200 OK in 494ms (Views: 439.8ms | ActiveRecord: 11.9ms | Allocations: 43701)
+
+
+Started GET "/users/10/edit" for 127.0.0.1 at 2022-03-20 23:10:02 +0500
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `edit'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  [1m[36mRole Load (0.3ms)[0m  [1m[34mSELECT "roles".* FROM "roles"[0m
+  ↳ app/views/users/edit.html.erb:2
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."id" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/edit.html.erb:2
+  Rendered users/edit.html.erb within layouts/application (Duration: 93.5ms | Allocations: 6335)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 166.6ms | Allocations: 10068)
+Completed 200 OK in 200ms (Views: 166.2ms | ActiveRecord: 2.2ms | Allocations: 12748)
+
+
+Started GET "/users/8/edit" for 127.0.0.1 at 2022-03-20 23:10:15 +0500
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"8"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `edit'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  [1m[36mRole Load (0.4ms)[0m  [1m[34mSELECT "roles".* FROM "roles"[0m
+  ↳ app/views/users/edit.html.erb:2
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."id" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/edit.html.erb:2
+  Rendered users/edit.html.erb within layouts/application (Duration: 8.5ms | Allocations: 2238)
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 88.6ms | Allocations: 5968)
+Completed 200 OK in 110ms (Views: 88.1ms | ActiveRecord: 2.5ms | Allocations: 7993)
+
+
+Started GET "/users/10/edit" for 127.0.0.1 at 2022-03-20 23:10:36 +0500
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `edit'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  [1m[36mRole Load (0.3ms)[0m  [1m[34mSELECT "roles".* FROM "roles"[0m
+  ↳ app/views/users/edit.html.erb:2
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."id" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/edit.html.erb:2
+  Rendered users/edit.html.erb within layouts/application (Duration: 7.4ms | Allocations: 2240)
+  [1m[36mRole Load (0.7ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 85.0ms | Allocations: 5957)
+Completed 200 OK in 107ms (Views: 84.4ms | ActiveRecord: 2.7ms | Allocations: 7970)
+
+
+Started GET "/dashboard" for 127.0.0.1 at 2022-03-20 23:17:35 +0500
+Processing by HomeController#dashboard as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering home/dashboard.html.erb within layouts/application
+  Rendered home/dashboard.html.erb within layouts/application (Duration: 12.4ms | Allocations: 122)
+  [1m[36mRole Load (1.3ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 397.4ms | Allocations: 22958)
+Completed 200 OK in 450ms (Views: 400.6ms | ActiveRecord: 7.7ms | Allocations: 33285)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 23:17:36 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.7ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.6ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 44.5ms | Allocations: 9553)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 129.8ms | Allocations: 13351)
+Completed 200 OK in 151ms (Views: 126.2ms | ActiveRecord: 6.1ms | Allocations: 15423)
+
+
+Started GET "/users/10/edit" for 127.0.0.1 at 2022-03-20 23:17:40 +0500
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `edit'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  [1m[36mRole Load (0.4ms)[0m  [1m[34mSELECT "roles".* FROM "roles"[0m
+  ↳ app/views/users/edit.html.erb:2
+  [1m[36mRole Pluck (0.6ms)[0m  [1m[34mSELECT "roles"."id" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/edit.html.erb:2
+  Rendered users/edit.html.erb within layouts/application (Duration: 9.9ms | Allocations: 3453)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 77.0ms | Allocations: 7183)
+Completed 200 OK in 100ms (Views: 76.7ms | ActiveRecord: 2.8ms | Allocations: 9743)
+
+
+Started PATCH "/users/10" for 127.0.0.1 at 2022-03-20 23:17:46 +0500
+Processing by UsersController#update as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"role_ids"=>["", "1"]}, "id"=>"10"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:11:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mRole Load (0.3ms)[0m  [1m[34mSELECT "roles".* FROM "roles" WHERE "roles"."id" = $1[0m  [["id", 1]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mRole Load (0.4ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mUser::HABTM_Roles Delete All (5.2ms)[0m  [1m[31mDELETE FROM "users_roles" WHERE "users_roles"."user_id" = $1 AND "users_roles"."role_id" = $2[0m  [["user_id", 10], ["role_id", 3]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mUser::HABTM_Roles Create (0.4ms)[0m  [1m[32mINSERT INTO "users_roles" ("user_id", "role_id") VALUES ($1, $2)[0m  [["user_id", 10], ["role_id", 1]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:13:in `update'
+Redirected to http://127.0.0.1:3000/users
+Completed 302 Found in 67ms (ActiveRecord: 10.0ms | Allocations: 11476)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 23:17:46 +0500
+Processing by UsersController#index as TURBO_STREAM
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 28.1ms | Allocations: 9525)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 93.1ms | Allocations: 13243)
+Completed 200 OK in 110ms (Views: 90.3ms | ActiveRecord: 4.2ms | Allocations: 14887)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 23:26:07 +0500
+  
+ArgumentError (wrong number of arguments (given 0, expected 1..2)):
+  
+app/models/user.rb:10:in `<class:User>'
+app/models/user.rb:2:in `<main>'
+config/routes.rb:7:in `block in <main>'
+config/routes.rb:1:in `<main>'
+Started GET "/users" for 127.0.0.1 at 2022-03-20 23:29:09 +0500
+  
+ArgumentError (wrong number of arguments (given 0, expected 1..2)):
+  
+app/models/user.rb:11:in `<class:User>'
+app/models/user.rb:2:in `<main>'
+config/routes.rb:7:in `block in <main>'
+config/routes.rb:1:in `<main>'
+Started GET "/users" for 127.0.0.1 at 2022-03-20 23:29:37 +0500
+  
+ArgumentError (wrong number of arguments (given 0, expected 1..2)):
+  
+app/models/user.rb:11:in `<class:User>'
+app/models/user.rb:2:in `<main>'
+config/routes.rb:7:in `block in <main>'
+config/routes.rb:1:in `<main>'
+Started GET "/users" for 127.0.0.1 at 2022-03-20 23:30:14 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.8ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.6ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.8ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.6ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 70.5ms | Allocations: 17588)
+  [1m[36mRole Load (1.0ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 407.8ms | Allocations: 34202)
+Completed 200 OK in 470ms (Views: 411.4ms | ActiveRecord: 14.1ms | Allocations: 44755)
+
+
+Started GET "/users/10/edit" for 127.0.0.1 at 2022-03-20 23:30:17 +0500
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `edit'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles"[0m
+  ↳ app/views/users/edit.html.erb:2
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."id" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/edit.html.erb:2
+  Rendered users/edit.html.erb within layouts/application (Duration: 19.0ms | Allocations: 2529)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 89.8ms | Allocations: 6277)
+Completed 200 OK in 117ms (Views: 89.3ms | ActiveRecord: 2.5ms | Allocations: 8904)
+
+
+Started PATCH "/users/10" for 127.0.0.1 at 2022-03-20 23:30:19 +0500
+Processing by UsersController#update as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"role_ids"=>[""]}, "id"=>"10"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:11:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mUser::HABTM_Roles Delete All (0.6ms)[0m  [1m[31mDELETE FROM "users_roles" WHERE "users_roles"."user_id" = $1 AND "users_roles"."role_id" = $2[0m  [["user_id", 10], ["role_id", 1]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles"[0m
+  ↳ app/views/users/edit.html.erb:2
+  Rendered users/edit.html.erb within layouts/application (Duration: 4.3ms | Allocations: 1358)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 84.3ms | Allocations: 5091)
+Completed 422 Unprocessable Entity in 122ms (Views: 84.3ms | ActiveRecord: 3.9ms | Allocations: 12340)
+
+
+Started PATCH "/users/10" for 127.0.0.1 at 2022-03-20 23:30:23 +0500
+Processing by UsersController#update as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"role_ids"=>["", "3"]}, "id"=>"10"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:11:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mRole Load (0.3ms)[0m  [1m[34mSELECT "roles".* FROM "roles" WHERE "roles"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mUser::HABTM_Roles Delete All (0.4ms)[0m  [1m[31mDELETE FROM "users_roles" WHERE "users_roles"."user_id" = $1 AND "users_roles"."role_id" = $2[0m  [["user_id", 10], ["role_id", 1]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mUser::HABTM_Roles Create (0.4ms)[0m  [1m[32mINSERT INTO "users_roles" ("user_id", "role_id") VALUES ($1, $2)[0m  [["user_id", 10], ["role_id", 3]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (6.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:13:in `update'
+Redirected to http://127.0.0.1:3000/users
+Completed 302 Found in 46ms (ActiveRecord: 9.1ms | Allocations: 7528)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-20 23:30:23 +0500
+Processing by UsersController#index as TURBO_STREAM
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 33.6ms | Allocations: 9525)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 114.1ms | Allocations: 13220)
+Completed 200 OK in 135ms (Views: 111.0ms | ActiveRecord: 4.9ms | Allocations: 14799)
+
+
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1435671319892535600)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreatePosts (20220320183721)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (33.4ms)[0m  [1m[35mCREATE TABLE "posts" ("id" bigserial primary key, "title" character varying, "content" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220320183721"]]
+  [1m[36mTRANSACTION (6.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(1435671319892535600)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/posts" for 127.0.0.1 at 2022-03-20 23:38:04 +0500
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PostsController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  ↳ app/views/posts/index.html.erb:6
+  Rendered posts/index.html.erb within layouts/application (Duration: 9.8ms | Allocations: 921)
+  [1m[36mRole Load (1.1ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 396.1ms | Allocations: 24274)
+Completed 200 OK in 472ms (Views: 403.4ms | ActiveRecord: 2.8ms | Allocations: 32994)
+
+
+Started GET "/posts/new" for 127.0.0.1 at 2022-03-20 23:38:08 +0500
+Processing by PostsController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering posts/new.html.erb within layouts/application
+  Rendered posts/_form.html.erb (Duration: 31.2ms | Allocations: 1445)
+  Rendered posts/new.html.erb within layouts/application (Duration: 45.0ms | Allocations: 1755)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 125.3ms | Allocations: 5483)
+Completed 200 OK in 160ms (Views: 125.9ms | ActiveRecord: 5.3ms | Allocations: 10069)
+
+
+Started POST "/posts" for 127.0.0.1 at 2022-03-20 23:38:17 +0500
+Processing by PostsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "post"=>{"title"=>"First", "content"=>"lsakjdas dkasjklasd jkldj askljd klasjd kasjdl"}, "commit"=>"Create Post"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/posts_controller.rb:27:in `block in create'
+  [1m[36mPost Create (0.7ms)[0m  [1m[32mINSERT INTO "posts" ("title", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "First"], ["content", "lsakjdas dkasjklasd jkldj askljd klasjd kasjdl"], ["created_at", "2022-03-20 18:38:17.500321"], ["updated_at", "2022-03-20 18:38:17.500321"]]
+  ↳ app/controllers/posts_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/posts_controller.rb:27:in `block in create'
+Redirected to http://127.0.0.1:3000/posts/1
+Completed 302 Found in 25ms (ActiveRecord: 2.3ms | Allocations: 3366)
+
+
+Started GET "/posts/1" for 127.0.0.1 at 2022-03-20 23:38:17 +0500
+Processing by PostsController#show as TURBO_STREAM
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/posts_controller.rb:63:in `set_post'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/show.html.erb within layouts/application
+  Rendered posts/_post.html.erb (Duration: 7.6ms | Allocations: 202)
+  Rendered posts/show.html.erb within layouts/application (Duration: 37.3ms | Allocations: 1116)
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 117.1ms | Allocations: 4829)
+Completed 200 OK in 147ms (Views: 118.0ms | ActiveRecord: 1.7ms | Allocations: 7565)
+
+
+Started GET "/posts" for 127.0.0.1 at 2022-03-20 23:38:31 +0500
+Processing by PostsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  ↳ app/views/posts/index.html.erb:6
+  Rendered posts/_post.html.erb (Duration: 0.1ms | Allocations: 24)
+  Rendered posts/index.html.erb within layouts/application (Duration: 3.7ms | Allocations: 716)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 81.8ms | Allocations: 4442)
+Completed 200 OK in 101ms (Views: 81.5ms | ActiveRecord: 1.7ms | Allocations: 5986)
+
+
+Started GET "/posts/new" for 127.0.0.1 at 2022-03-20 23:38:40 +0500
+Processing by PostsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering posts/new.html.erb within layouts/application
+  Rendered posts/_form.html.erb (Duration: 1.5ms | Allocations: 691)
+  Rendered posts/new.html.erb within layouts/application (Duration: 2.3ms | Allocations: 784)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 83.6ms | Allocations: 4506)
+Completed 200 OK in 104ms (Views: 84.3ms | ActiveRecord: 1.3ms | Allocations: 6068)
+
+
+Started POST "/posts" for 127.0.0.1 at 2022-03-20 23:38:51 +0500
+Processing by PostsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "post"=>{"title"=>"secon", "content"=>"lorem ipsum asljdas dklasjd kal jdlas jdas\n"}, "commit"=>"Create Post"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/posts_controller.rb:27:in `block in create'
+  [1m[36mPost Create (0.4ms)[0m  [1m[32mINSERT INTO "posts" ("title", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "secon"], ["content", "lorem ipsum asljdas dklasjd kal jdlas jdas\n"], ["created_at", "2022-03-20 18:38:51.861934"], ["updated_at", "2022-03-20 18:38:51.861934"]]
+  ↳ app/controllers/posts_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (6.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/posts_controller.rb:27:in `block in create'
+Redirected to http://127.0.0.1:3000/posts/2
+Completed 302 Found in 33ms (ActiveRecord: 7.3ms | Allocations: 3260)
+
+
+Started GET "/posts/2" for 127.0.0.1 at 2022-03-20 23:38:51 +0500
+Processing by PostsController#show as TURBO_STREAM
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/posts_controller.rb:63:in `set_post'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/show.html.erb within layouts/application
+  Rendered posts/_post.html.erb (Duration: 0.1ms | Allocations: 24)
+  Rendered posts/show.html.erb within layouts/application (Duration: 1.3ms | Allocations: 325)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 91.1ms | Allocations: 4037)
+Completed 200 OK in 112ms (Views: 91.1ms | ActiveRecord: 1.6ms | Allocations: 6070)
+
+
+Started GET "/posts" for 127.0.0.1 at 2022-03-20 23:38:56 +0500
+Processing by PostsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  ↳ app/views/posts/index.html.erb:6
+  Rendered posts/_post.html.erb (Duration: 0.2ms | Allocations: 24)
+  Rendered posts/_post.html.erb (Duration: 0.1ms | Allocations: 23)
+  Rendered posts/index.html.erb within layouts/application (Duration: 10.8ms | Allocations: 844)
+  [1m[36mRole Load (0.6ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 110.6ms | Allocations: 4570)
+Completed 200 OK in 149ms (Views: 116.5ms | ActiveRecord: 1.6ms | Allocations: 6101)
+
+
+Started GET "/posts" for 127.0.0.1 at 2022-03-21 09:32:12 +0500
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/posts"):
+  
+Started GET "/" for 127.0.0.1 at 2022-03-21 09:32:17 +0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 13.2ms | Allocations: 126)
+  Rendered layout layouts/application.html.erb (Duration: 817.9ms | Allocations: 35123)
+Completed 200 OK in 882ms (Views: 831.3ms | ActiveRecord: 0.0ms | Allocations: 38668)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-03-21 09:32:20 +0500
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering /home/zeesa/.rvm/gems/ruby-3.0.0/gems/devise-4.8.1/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /home/zeesa/.rvm/gems/ruby-3.0.0/gems/devise-4.8.1/app/views/devise/shared/_links.html.erb (Duration: 2.2ms | Allocations: 828)
+  Rendered /home/zeesa/.rvm/gems/ruby-3.0.0/gems/devise-4.8.1/app/views/devise/sessions/new.html.erb within layouts/application (Duration: 153.8ms | Allocations: 5671)
+  Rendered layout layouts/application.html.erb (Duration: 212.1ms | Allocations: 7923)
+Completed 200 OK in 269ms (Views: 220.8ms | ActiveRecord: 8.0ms | Allocations: 17845)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2022-03-21 09:32:22 +0500
+Processing by Devise::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"new@new.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (3.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "new@new.com"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Update (0.6ms)[0m  [1m[33mUPDATE "users" SET "updated_at" = $1, "sign_in_count" = $2, "current_sign_in_at" = $3, "last_sign_in_at" = $4 WHERE "users"."id" = $5[0m  [["updated_at", "2022-03-21 04:32:22.909441"], ["sign_in_count", 3], ["current_sign_in_at", "2022-03-21 04:32:22.908944"], ["last_sign_in_at", "2022-03-20 17:43:46.318069"], ["id", 10]]
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 344ms (ActiveRecord: 7.7ms | Allocations: 9733)
+
+
+Started GET "/" for 127.0.0.1 at 2022-03-21 09:32:22 +0500
+Processing by HomeController#index as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.1ms | Allocations: 15)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.erb:19
+  [1m[36mRole Load (5.0ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (1.1ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 215.6ms | Allocations: 19637)
+Completed 200 OK in 231ms (Views: 206.9ms | ActiveRecord: 10.2ms | Allocations: 20015)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-21 09:32:29 +0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.8ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.8ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.8ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.6ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 55.0ms | Allocations: 9797)
+  [1m[36mRole Load (0.7ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 128.2ms | Allocations: 13588)
+Completed 200 OK in 154ms (Views: 127.0ms | ActiveRecord: 7.2ms | Allocations: 15805)
+
+
+Started GET "/users/9/edit" for 127.0.0.1 at 2022-03-21 09:32:31 +0500
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"9"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `edit'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  [1m[36mRole Load (0.4ms)[0m  [1m[34mSELECT "roles".* FROM "roles"[0m
+  ↳ app/views/users/edit.html.erb:2
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."id" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/edit.html.erb:2
+  Rendered users/edit.html.erb within layouts/application (Duration: 91.1ms | Allocations: 6047)
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 165.3ms | Allocations: 9764)
+Completed 200 OK in 194ms (Views: 165.2ms | ActiveRecord: 2.2ms | Allocations: 12409)
+
+
+Started PATCH "/users/9" for 127.0.0.1 at 2022-03-21 09:32:40 +0500
+Processing by UsersController#update as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"role_ids"=>["", "2", "3"]}, "id"=>"9"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:11:in `update'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" WHERE "roles"."id" IN ($1, $2)[0m  [["id", 2], ["id", 3]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mRole Load (0.4ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mUser::HABTM_Roles Create (0.4ms)[0m  [1m[32mINSERT INTO "users_roles" ("user_id", "role_id") VALUES ($1, $2)[0m  [["user_id", 9], ["role_id", 3]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:13:in `update'
+Redirected to http://127.0.0.1:3000/users
+Completed 302 Found in 69ms (ActiveRecord: 5.4ms | Allocations: 10486)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-21 09:32:40 +0500
+Processing by UsersController#index as TURBO_STREAM
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.6ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.4ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 39.7ms | Allocations: 9530)
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 107.9ms | Allocations: 13226)
+Completed 200 OK in 126ms (Views: 104.5ms | ActiveRecord: 5.2ms | Allocations: 14807)
+
+
+Started GET "/users/10/edit" for 127.0.0.1 at 2022-03-21 09:32:42 +0500
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"10"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `edit'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  [1m[36mRole Load (0.4ms)[0m  [1m[34mSELECT "roles".* FROM "roles"[0m
+  ↳ app/views/users/edit.html.erb:2
+  [1m[36mRole Pluck (0.5ms)[0m  [1m[34mSELECT "roles"."id" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/edit.html.erb:2
+  Rendered users/edit.html.erb within layouts/application (Duration: 7.5ms | Allocations: 2241)
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 87.5ms | Allocations: 5962)
+Completed 200 OK in 108ms (Views: 87.1ms | ActiveRecord: 2.4ms | Allocations: 7979)
+
+
+Started PATCH "/users/10" for 127.0.0.1 at 2022-03-21 09:32:45 +0500
+Processing by UsersController#update as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"role_ids"=>[""]}, "id"=>"10"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:11:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mRole Load (0.4ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mUser::HABTM_Roles Delete All (5.5ms)[0m  [1m[31mDELETE FROM "users_roles" WHERE "users_roles"."user_id" = $1 AND "users_roles"."role_id" = $2[0m  [["user_id", 10], ["role_id", 3]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  [1m[36mRole Load (0.4ms)[0m  [1m[34mSELECT "roles".* FROM "roles"[0m
+  ↳ app/views/users/edit.html.erb:2
+  Rendered users/edit.html.erb within layouts/application (Duration: 3.7ms | Allocations: 1361)
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 78.6ms | Allocations: 5090)
+Completed 422 Unprocessable Entity in 125ms (Views: 87.8ms | ActiveRecord: 8.1ms | Allocations: 11190)
+
+
+Started PATCH "/users/10" for 127.0.0.1 at 2022-03-21 09:32:47 +0500
+Processing by UsersController#update as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"role_ids"=>["", "3"]}, "id"=>"10"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:11:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mRole Load (0.3ms)[0m  [1m[34mSELECT "roles".* FROM "roles" WHERE "roles"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mRole Load (0.7ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/controllers/users_controller.rb:13:in `update'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:13:in `update'
+Redirected to http://127.0.0.1:3000/users
+Completed 302 Found in 32ms (ActiveRecord: 2.1ms | Allocations: 4884)
+
+
+Started GET "/users" for 127.0.0.1 at 2022-03-21 09:32:47 +0500
+Processing by UsersController#index as TURBO_STREAM
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 8]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/views/users/index.html.erb:6
+  [1m[36mRole Pluck (0.3ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/users/index.html.erb:6
+  Rendered users/index.html.erb within layouts/application (Duration: 29.4ms | Allocations: 9529)
+  [1m[36mRole Load (0.5ms)[0m  [1m[34mSELECT "roles".* FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1 AND (((roles.name = 'admin') AND (roles.resource_type IS NULL) AND (roles.resource_id IS NULL)))[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:44
+  [1m[36mCACHE Role Pluck (0.0ms)[0m  [1m[34mSELECT "roles"."name" FROM "roles" INNER JOIN "users_roles" ON "roles"."id" = "users_roles"."role_id" WHERE "users_roles"."user_id" = $1[0m  [["user_id", 10]]
+  ↳ app/views/layouts/application.html.erb:45
+  Rendered layout layouts/application.html.erb (Duration: 94.0ms | Allocations: 13227)
+Completed 200 OK in 110ms (Views: 91.4ms | ActiveRecord: 4.1ms | Allocations: 14811)
+
+

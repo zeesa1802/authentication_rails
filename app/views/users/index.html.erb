@@ -1,6 +1,9 @@
 <h1>Users Information</h1>
 
 <% @users.each do |user| %>
-  <p> email: <%= user.email %>       sign in count: <%=user.sign_in_count%> </p>
-  
+  email: <%= user.email %>
+  sign in count: <%=user.sign_in_count%>
+  <%=user.roles.pluck(:name) %>
+  <%= link_to "Edit Role", edit_user_path(user)	%>
+  <br>
 <% end %>

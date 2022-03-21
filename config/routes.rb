@@ -9,7 +9,8 @@ devise_for :users, controllers: { registrations: "registrations" }
 
 root 'home#index'
 get 'dashboard', to: 'home#dashboard'
-resources :users, only: [:index]
+# resources :users, only: [:index]
+resources :users
 # get 'users', to: 'users#index'
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
